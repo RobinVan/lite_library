@@ -5,7 +5,7 @@ __author__ = 'Michael Liao'
 
 ' url handlers '
 
-import re, time, json, logging, hashlib, base64, asyncio
+import re, time, json, logging, hashlib, asyncio
 
 import markdown2
 
@@ -16,6 +16,7 @@ from apis import Page, APIValueError, APIResourceNotFoundError
 
 from models import User, Comment, Blog, next_id
 from config import configs
+from apis import APIPermissionError,APIError
 
 COOKIE_NAME = 'awesession'
 _COOKIE_KEY = configs.session.secret
@@ -29,7 +30,7 @@ def get_page_index(page_str):
     try:
         p = int(page_str)
     except ValueError as e:
-        pass
+        logging.info(e)
     if p < 1:
         p = 1
     return p

@@ -56,6 +56,7 @@ def execute(sql, args, autocommit=True):
             if not autocommit:
                 yield from conn.commit()
         except BaseException as e:
+            logging.info(e)
             if not autocommit:
                 yield from conn.rollback()
             raise
@@ -120,12 +121,12 @@ class ModelMetaclass(type):
                 if v.primary_key:
                     # 找到主键:
                     if primaryKey:
-                        raise StandardError('Duplicate primary key for field: %s' % k)
+                        raise BaseException('Duplicate primary key for field: %s' % k)
                     primaryKey = k
                 else:
                     fields.append(k)
         if not primaryKey:
-            raise StandardError('Primary key not found.')
+            raise BaseException('Primary key not found.')
         for k in mappings.keys():
             attrs.pop(k)
         escaped_fields = list(map(lambda f: '`%s`' % f, fields))
