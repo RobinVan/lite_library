@@ -5,7 +5,6 @@ import uuid
 
 from orm import Model, StringField, BooleanField, FloatField, TextField
 
-
 def next_id():
     return '%015d%s000' % (int(time.time() * 1000), uuid.uuid4().hex)
 
@@ -28,7 +27,7 @@ class Blog(Model):
     id = StringField(primary_key=True, default=next_id, ddl='varchar(50)')
     user_id = StringField(ddl='varchar(50)')
     user_name = StringField(ddl='varchar(50)')
-    user_image = StringField(ddl='varchar(500)')
+    user_image = StringField(dggkdl='varchar(500)')
     name = StringField(ddl='varchar(500)')
     summary = StringField(ddl='varchar(500)')
     content = TextField()
@@ -56,7 +55,7 @@ class Book(Model):
     book_version = StringField(ddl='varchar(50)')
     book_language = StringField(ddl='varchar(50)')
     book_image = StringField(ddl='varchar(500)')
+    book_owner = StringField(ddl='varchar(500)')
     book_total_count = StringField(ddl='varchar(50)')
     book_left_count = StringField(ddl='varchar(50)')
-    content = TextField()
     created_at = FloatField(default=time.time)
